@@ -1,0 +1,43 @@
+<html>
+<head>
+
+<meta charset="UTF-8" />
+<title>Minecraft Users</title>
+<link href="main.css" rel="stylesheet" />
+
+<script language="javascript" type="text/javascript" src="jquery-1.7.2.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.flot.resize.js"></script>
+<script language="javascript" type="text/javascript" src="jquery.flot.time.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var options = {
+            xaxis: { mode: "time", timeformat: "%Y-%m-%d %H:%M:%S" }
+        };
+
+        var label = "";
+        var data = [];
+        var url = '/json/';
+
+        $.plot("#placeholder", data, options);
+
+        $.getJSON(url, function(json) {
+            label = json.label;
+            data = json.data;
+            $.plot("#placeholder", [label, data], options);
+            document.getElementById("title").innerHTML = label;
+        });
+    }); 
+
+</script>
+
+</head>
+<body>
+
+<div id="chart">
+<h1 id="title">Retrieving Data</h1>
+<div id="placeholder"></div>
+</div>
+
+</body>
+</html>
